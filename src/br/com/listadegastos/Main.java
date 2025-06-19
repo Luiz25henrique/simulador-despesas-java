@@ -1,9 +1,9 @@
 package br.com.listadegastos;
-import br.com.listadegastos.compradeitens.BoughtItem; // Importa a classe BoughtItem
-import br.com.listadegastos.compradeitens.PurchaseManager; // Importa a classe PurchaseManager
-import br.com.listadegastos.limite.Limite; // Importa a classe Limite
-import br.com.listadegastos.notice.Messages; // Importa a classe Messages
-import br.com.listadegastos.password.Password; // Importa a classe Password
+import br.com.listadegastos.compradeitens.BoughtItem;
+import br.com.listadegastos.compradeitens.PurchaseManager;
+import br.com.listadegastos.limite.Limite;
+import br.com.listadegastos.notice.Messages;
+import br.com.listadegastos.password.Password;
 
 import java.util.ArrayList;
 import java.util.Collections;
