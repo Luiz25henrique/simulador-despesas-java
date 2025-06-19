@@ -12,42 +12,37 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Main {
-    // Logger para a classe Main
+
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
 
-        // 1. Instanciação das dependências e objetos centrais
-        Scanner leitor = new Scanner(System.in); // O Scanner é único e centralizado aqui
-        Limite limite = new Limite(2000.0); // Limite inicial do cartão (ex: R$2000,00)
-        Password passwordManager = new Password(); // O gerenciador de senhas
-        List<BoughtItem> listaDeCompras = new ArrayList<>(); // A lista principal de compras
 
-        // 2. Instanciação do PurchaseManager, INJETANDO todas as suas dependências
+        Scanner leitor = new Scanner(System.in);
+        Limite limite = new Limite(2000.0);
+        Password passwordManager = new Password();
+        List<BoughtItem> listaDeCompras = new ArrayList<>();
+
         PurchaseManager purchaseManager = new PurchaseManager(leitor, limite, passwordManager, listaDeCompras);
 
-        boolean programaRodando = true; // Flag para controlar o loop principal do programa
+        boolean programaRodando = true;
 
-        // 3. Loop Principal do Menu
         while(programaRodando) {
-            // Exibe o menu principal e o limite disponível
-            logger.info(Messages.MAIN_MENU);
-            logger.info("Limite disponível: R$" + String.format("%.2f", limite.getLimiteAtual())); // Exibe o limite atual
 
-            int menuChoice = leitor.nextInt(); // Lê a escolha do usuário no menu principal
+            logger.info(Messages.MAIN_MENU);
+            logger.info("Limite disponível: R$" + String.format("%.2f", limite.getLimiteAtual()));
+            int menuChoice = leitor.nextInt();
             leitor.nextLine(); // Limpa o buffer do scanner
 
-            // 4. Switch para lidar com as opções do menu
             switch (menuChoice) {
                 case 1: // Adicionar despesas (Realizar Compras)
-                    // Chama o método do PurchaseManager para iniciar o processo de compra.
-                    // O retorno de 'startPurchaseProcess' indica se o Main deve encerrar.
+
                     boolean shouldExitFromPurchase = purchaseManager.startPurchaseProcess();
                     if (shouldExitFromPurchase) {
-                        programaRodando = false; // Se o usuário escolheu sair lá dentro, o programa encerra.
+                        programaRodando = false;
                     }
 
-                    logger.info(Messages.INTERFACE + "\n"); // Adiciona um espaçamento após o processo de compra
+                    logger.info(Messages.INTERFACE + "\n");
                     break;
 
                 case 2: // Ver lista de despesas
@@ -56,11 +51,11 @@ public class Main {
                         logger.info("Nenhuma despesa registrada ainda.");
                         logger.info(Messages.INTERFACE + "\n");
                     } else {
-                        Collections.sort(listaDeCompras); // Garante que a lista está ordenada pelo compareTo()
+                        Collections.sort(listaDeCompras);
                         logger.info(Messages.INTERFACE);
                         logger.info("--- Suas Despesas Registradas (Ordenadas por Valor) ---");
                         for (BoughtItem item : listaDeCompras) {
-                            logger.info(item.toString()); // Usa o toString() formatado do BoughtItem
+                            logger.info(item.toString());
                         }
                         logger.info(Messages.INTERFACE + "\n");
                     }
@@ -73,7 +68,7 @@ public class Main {
                     break;
 
                 case 0: // Sair
-                    logger.info(Messages.EXIT_PROGRAMA); // Assumindo SAINDO_PROGRAMA em Messages
+                    logger.info(Messages.EXIT_PROGRAMA);
                     programaRodando = false; // Define a flag para encerrar o loop principal
                     break;
 
@@ -85,9 +80,9 @@ public class Main {
             }
         }
         // 5. Fechar recursos
-        leitor.close(); // Fecha o Scanner quando o programa termina
+        leitor.close();
 
-        // Mensagem de encerramento final (opcional, pode já estar no SAINDO_PROGRAMA)
+
         logger.info("Programa encerrado com sucesso.");
     }
 }
